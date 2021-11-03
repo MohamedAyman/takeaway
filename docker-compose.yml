@@ -1,0 +1,65 @@
+version: "3"
+
+services:
+  player1-service:
+    build:
+      context: ./player1
+      dockerfile: ./Dockerfile
+    container_name: player1-service
+    ports:
+      - 5001:5001
+    environment:
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka-local:9092
+      PLAYER.DOMAIN.ENDPOINT.RECEIVER: http://player2-service:6001
+      AUTOMATIC_PLAYER: "true"
+      FIRST_MOVE: "true"
+    depends_on:
+    - kafka-local
+
+  player2-service:
+    build:
+      context: ./player2
+      dockerfile: ./Dockerfile
+    container_name: player2-service
+    ports:
+      - 6001:6001
+    environment:
+      SPRING_KAFKA_BOOTSTRAP-SERVERS: kafka-local:9092
+      PLAYER.DOMAIN.ENDPOINT.RECEIVER: http://player1-service:5001
+      AUTOMATIC_PLAYER: "false"
+      FIRST_MOVE: "false"
+    depends_on:
+    - kafka-local
+    - player1-service
+    
+  zookeeper-local:
+    image: confluentinc/cp-zookeeper:6.2.0
+    container_name: zookeeper-local
+    ports:
+      - "2191:2191"
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2191
+      ZOOKEEPER_TICK_TIME: 2000
+
+  kafka-local:
+    image: confluentinc/cp-kafka:6.2.0
+    container_name: kafka-local
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper-local:2191
+      KAFKA_LISTENERS: LISTENER://kafka-local:9092
+      KAFKA_ADVERTISED_LISTENERS: LISTENER://kafka-local:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: LISTENER:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: LISTENER
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
+    depends_on:
+      - zookeeper-local
+    networks:
+      default:
+        aliases:
+          - "kafka-local"
