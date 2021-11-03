@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "658b2b89-1a2f-48c9-8623-f0daa782d36f",
+		"name": "Game",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Player2 Log",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6001/player/log",
+					"host": [
+						"localhost"
+					],
+					"port": "6001",
+					"path": [
+						"player",
+						"log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player1 Log",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/player/log",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"player",
+						"log"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player1 first manual move",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"current_number\" : 56\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5001/player",
+					"host": [
+						"localhost"
+					],
+					"port": "5001",
+					"path": [
+						"player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Player2 first manual move",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"current_number\" : 56\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:6001/player",
+					"host": [
+						"localhost"
+					],
+					"port": "6001",
+					"path": [
+						"player"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
