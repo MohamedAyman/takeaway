@@ -36,3 +36,6 @@ to see player logs
 ```
 get localhost:5001/player/log
 ```
+```
+get localhost:6001/player/log
+```
