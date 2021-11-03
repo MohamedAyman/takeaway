@@ -48,7 +48,7 @@ public class PlayerService {
         }
     }
 
-    private int nextMove(int number) {
+    public int nextMove(int number) {
         for (int j : gameMove) {
             if ((number + j) % THREE == 0) {
                 return j;
@@ -57,7 +57,7 @@ public class PlayerService {
         return 0;
     }
 
-    private boolean checkWinNumber(int number) {
+    public boolean checkWinNumber(int number) {
         if (number == 1) {
             String winner = "You are the winner!!";
             print(winner);
@@ -75,7 +75,7 @@ public class PlayerService {
         }
     }
 
-    private boolean sendUsingRestEndPoint(Player player) {
+    public boolean sendUsingRestEndPoint(Player player) {
         try {
             HttpEntity<Player> request = new HttpEntity<>(player);
             restTemplate.postForObject(playerDomain + playerEndpointReceiver, request, Void.class);
@@ -85,7 +85,7 @@ public class PlayerService {
         }
     }
 
-    private void sendUsingMessaging(Player player) {
+    public void sendUsingMessaging(Player player) {
         kafkaProducer.sendUsingKafka(player);
     }
 }

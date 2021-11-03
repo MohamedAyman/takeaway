@@ -50,7 +50,7 @@ public class PlayerService {
         }
     }
 
-    private int nextMove(int number) {
+    public int nextMove(int number) {
         for (int j : gameMove) {
             if ((number + j) % THREE == 0) {
                 return j;
@@ -59,7 +59,7 @@ public class PlayerService {
         return 0;
     }
 
-    private boolean checkWinNumber(int number) {
+    public boolean checkWinNumber(int number) {
         if (number == 1) {
             String winner = "You are the winner!!";
             print(winner);
